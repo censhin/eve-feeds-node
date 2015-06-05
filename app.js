@@ -1,6 +1,6 @@
-var server = app.listen(8080, function () {
-    var host = server.address().address;
-    var port = server.address().port;
+var sio = require('socket.io');
+var hamster = require('hamster');
 
-    console.log('Example app listening at http://%s:%s', host, port);
-});
+var port = 8081;
+var io = sio(port);
+console.log('listening on *:' + port);
