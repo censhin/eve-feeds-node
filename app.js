@@ -60,7 +60,7 @@ var startup = function() {
         return res;
     });
 
-    redisClient.hmset(notificaitons, resp);
+    redisClient.hmset(notifications, resp);
 }
 
 startup();
