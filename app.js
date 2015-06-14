@@ -49,7 +49,7 @@ var publishNewNotifications = function(uniqueIds, callback) {
     _.each(uniqueIds, function (id) {
         hamster.fetch('char:NotificationTexts', {IDs: id}, function(err, res) {
             if(err) throw err
-            // publish the notification to all subscribers
+            redisClient.publish(res);
         });
     });
 }
@@ -82,6 +82,7 @@ for() {
         });
     }
 
+    // sleep for 30 minutes
     sleep.sleep(1800);
 }
 
