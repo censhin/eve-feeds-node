@@ -84,7 +84,7 @@ while(true) {
         redisClient.hmset(notifications, resp);
     }
 
-    // sleep for 30 minutes
-    sleep.sleep(1800);
+    // sleep for 5 minutes
+    sleep.sleep(300);
 }
 
