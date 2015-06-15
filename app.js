@@ -65,7 +65,7 @@ var startup = function() {
 
 startup();
 
-for() {
+while(true) {
     var resp = fetchPosNotifications(function(err, res) {
         if(err) throw err
         return res;
