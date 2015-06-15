@@ -80,6 +80,8 @@ while(true) {
         publishNewNotifications(newNotifications, function(err) {
             if(err) throw err
         });
+
+        redisClient.hmset(notifications, resp);
     }
 
     // sleep for 30 minutes
