@@ -1,5 +1,3 @@
-var sleep = require('sleep');
-
 var _ = require('lodash');
 var redis = require('redis');
 var hamster = require('hamster');
@@ -60,31 +58,30 @@ var startup = function() {
         return res;
     });
 
-    redisClient.hmset(notifications, resp);
+    redisClient.hmset('notifications', resp);
 }
 
 startup();
 
 while(true) {
-    var resp = fetchPosNotifications(function(err, res) {
-        if(err) throw err
-        return res;
-    });
-
-    var newNotifications = getNewNotificationIds(resp, function(err, res) {
-        if(err) throw err
-        return res;
-    });
-
-    if(newNotifications) {
-        publishNewNotifications(newNotifications, function(err) {
+    setTimeout(function () {
+        var resp = fetchPosNotifications(function(err, res) {
             if(err) throw err
+            return res;
         });
 
-        redisClient.hmset(notifications, resp);
-    }
+        var newNotifications = getNewNotificationIds(resp, function(err, res) {
+            if(err) throw err
+            return res;
+        });
 
-    // sleep for 5 minutes
-    sleep.sleep(300);
+        if(newNotifications) {
+            publishNewNotifications(newNotifications, function(err) {
+                if(err) throw err
+            });
+
+            redisClient.hmset('notifications', resp);
+        }
+    }, 300);
 }
 
